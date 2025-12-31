@@ -1,4 +1,4 @@
-import mysql from "mysql2";
+import mysql from "mysql2/promise";
 
 export async function initSqlDb() {
   const initConnection = await mysql.createConnection({
@@ -20,6 +20,7 @@ export async function initSqlDb() {
   totalPrice DECIMAL(10,2) NOT NULL,
   orderDate DATETIME DEFAULT CURRENT_TIMESTAMP
 );`;
+console.log("lol")
 
   await initConnection.query(CREATE_DB_QUERY);
   await initConnection.query(USE_DB_QUERY);
@@ -28,18 +29,18 @@ export async function initSqlDb() {
   await initConnection.end();
 }
 
-let conn = null;
+let sqlConn = null;
 
-export async function getConn() {
-  if (conn) return conn;
+export async function getMysqlConnection() {
+  if (sqlConn) return sqlConn;
   else {
-    const conn = await mysql.createConnection({
+    const sqlConn = await mysql.createConnection({
       host: "localhost",
       user: "root",
       password: "root",
       port: 3306,
       database: "ecommerce",
     });
-    return conn;
+    return sqlConn;
   }
 }

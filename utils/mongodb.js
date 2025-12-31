@@ -1,12 +1,13 @@
-import MongoClient from "mongodb";
+import { MongoClient } from "mongodb";
+
 
 const MONGO_URL =
   "mongodb://admin:password123@localhost:27018/ecommerce?authSource=admin";
 const Database = "ecommerce";
 const Collection = "products";
 
-let mongoConn = null
-let mongocClient = null
+let mongoConn = null;
+let mongocClient = null;
 
 export async function initMongoDb() {
   try {
@@ -24,5 +25,24 @@ export async function initMongoDb() {
   } catch (error) {
     console.error("Error initializing database:", error);
     throw error;
+  }
+}
+
+export async function getMongoDbConnection() {
+  if (!mongoConn) {
+    if (!mongocClient) {
+      mongocClient = new MongoClient(MONGO_URL);
+      await mongocClient.connect();
+    }
+    mongoConn = mongocClient.db("ecommerce");
+  }
+  return mongoConn;
+}
+
+export async function closeConnection() {
+  if (mongocClient) {
+    await mongocClient.close();
+    mongocClient = null;
+    mongoConn = null;
   }
 }
