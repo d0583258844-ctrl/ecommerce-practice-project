@@ -1,0 +1,20 @@
+{
+  "name": "mark_project",
+  "version": "1.0.0",
+  "description": "Build an Express server that manages products (stored in MongoDB) and orders (stored in MySQL) for an e-commerce system. This exercise will help you practice working with both MongoDB and MySQL databases in a single application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongodb": "^7.0.0",
+    "mysql2": "^3.16.0"
+  }
+}
