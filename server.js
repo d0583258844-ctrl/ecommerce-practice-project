@@ -2,6 +2,7 @@ import express from "express";
 import { getMongoDbConnection, initMongoDb } from "./utils/mongodb.js";
 import { getMysqlConnection, initSqlDb } from "./utils/mysql.js";
 import productsRoutes from "./routes/products.js"
+import ordersRoutes from "./routes/orders.js";
 
 const app = express();
 const PORT = 8000;
@@ -19,6 +20,8 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/api/products",productsRoutes)
+
+app.use("/api/orders", ordersRoutes);
 
 app.listen(PORT, async () => {
   await initMongoDb();
